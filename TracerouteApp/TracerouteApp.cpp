@@ -13,6 +13,7 @@ TracerouteApp::~TracerouteApp()
 
 void TraceLoop(int Max_hop,std::string destiproute) {
     sockaddr_in destip;
+    memset(&destip, 0, sizeof(destip));
     std::vector<int> ping;
     std::string routeip;
     Traceroute tr;

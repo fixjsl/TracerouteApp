@@ -1,5 +1,5 @@
 #include "TracerouteApp.h"
-#include <QtWidgets/QApplication>
+#include "QtHeader.h"
 
 int main(int argc, char *argv[])
 {

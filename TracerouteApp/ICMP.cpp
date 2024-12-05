@@ -118,4 +118,9 @@
 	{
 		return type;
 	}
+
+	int ICMP::getPing()
+	{
+		return 0;
+	}
 	

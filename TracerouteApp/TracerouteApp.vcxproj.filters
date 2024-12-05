@@ -57,5 +57,8 @@
     <ClInclude Include="Traceroute.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="QtHeader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

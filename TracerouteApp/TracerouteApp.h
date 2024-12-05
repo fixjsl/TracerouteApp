@@ -2,6 +2,8 @@
 
 #include <QtWidgets/QWidget>
 #include "ui_TracerouteApp.h"
+#include "QtHeader.h"
+
 
 class TracerouteApp : public QWidget
 {

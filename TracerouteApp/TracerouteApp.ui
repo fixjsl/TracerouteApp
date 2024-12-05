@@ -1,10 +1,8 @@
-<UI version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>TracerouteAppClass</class>
- <widget class="QWidget" name="TracerouteAppClass" >
-  <property name="objectName" >
-   <string notr="true">TracerouteAppClass</string>
-  </property>
-  <property name="geometry" >
+ <widget class="QWidget" name="TracerouteAppClass">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -12,14 +10,57 @@
     <height>400</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>TracerouteApp</string>
-  </property>$centralwidget$
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="text">
+      <string>Enter the URL</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Start</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QScrollArea" name="scrollArea">
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>465</width>
+          <height>348</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>URL</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources>
-   <include location="TracerouteApp.qrc"/>
+  <include location="TracerouteApp.qrc"/>
  </resources>
  <connections/>
-</UI>
+</ui>
