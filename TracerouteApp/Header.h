@@ -6,7 +6,8 @@
 #include <thread>
 #include <future>
 #include <vector>
-
+#include <qdebug.h>
+#define Max_hop 30
 //IPHEADER 구조체 정의
 struct iphdr {
 	uint8_t ihl : 4;

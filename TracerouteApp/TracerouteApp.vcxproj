@@ -63,6 +63,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <UACUIAccess>false</UACUIAccess>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -96,6 +106,7 @@
     <QtUic Include="TracerouteApp.ui" />
     <QtMoc Include="TracerouteApp.h" />
     <ClCompile Include="ICMP.cpp" />
+    <ClCompile Include="InforLayout.cpp" />
     <ClCompile Include="Traceroute.cpp" />
     <ClCompile Include="TracerouteApp.cpp" />
     <ClCompile Include="main.cpp" />
@@ -103,6 +114,7 @@
   <ItemGroup>
     <ClInclude Include="Header.h" />
     <ClInclude Include="ICMP.h" />
+    <ClInclude Include="InforLayout.h" />
     <ClInclude Include="Traceroute.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

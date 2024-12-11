@@ -46,6 +46,9 @@
     <ClCompile Include="Traceroute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="InforLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
@@ -55,6 +58,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Traceroute.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InforLayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

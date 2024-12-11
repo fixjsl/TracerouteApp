@@ -1,7 +1,10 @@
 #pragma once
 
 #include <QtWidgets/QWidget>
+#include "Traceroute.h"
 #include "ui_TracerouteApp.h"
+#include <qmessagebox.h>
+#include "InforLayout.h"
 
 class TracerouteApp : public QWidget
 {
@@ -10,7 +13,8 @@ class TracerouteApp : public QWidget
 public:
     TracerouteApp(QWidget *parent = nullptr);
     ~TracerouteApp();
-
+    void TraceLoop();
 private:
+   Traceroute trace;
     Ui::TracerouteAppClass ui;
 };

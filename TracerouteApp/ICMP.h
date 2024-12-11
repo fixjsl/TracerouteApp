@@ -23,11 +23,10 @@ private:
 	void analyzePacket(int packetSize);
 	
 public:
-	
+	sockaddr_in Stadd(std::string destAddr);//문자열 ip변환
 	std::string Send(SOCKET sock, int ttl, sockaddr_in destAddr,int i);
 	std::string Receive(SOCKET sock);
 	std::string getIp();
 	uint8_t getType();
-	int getPing();
 };
 

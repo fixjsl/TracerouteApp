@@ -1,4 +1,7 @@
 <RCC>
-    <qresource prefix="TracerouteApp">
-    </qresource>
+  <qresource prefix="TracerouteApp"/>
+  <qresource prefix="newPrefix">
+    <file>img1.png</file>
+    <file>img3.png</file>
+  </qresource>
 </RCC>
