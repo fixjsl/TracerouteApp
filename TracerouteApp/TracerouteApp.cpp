@@ -16,21 +16,16 @@ TracerouteApp::~TracerouteApp()
 {}
 
 void TracerouteApp::ClearLayout(QLayout* layout) {
-	if (!layout) return; // nullptr 체크
-
-	// QLayoutItem을 하나씩 가져와 처리
-	QLayoutItem* item;
-	while ((item = layout->takeAt(0)) != nullptr) {
-		// 아이템이 위젯인 경우 삭제
-		if (item->widget()) {
-			item->widget()->deleteLater(); // 안전한 삭제
+	if (!layout) return;
+	QLayoutItem* temp;
+	if ((temp = layout->takeAt(0)) != nullptr) {
+		if (temp->widget()) {
+			delete temp->widget();
 		}
-		// 아이템이 서브 레이아웃인 경우 재귀적으로 처리
-		if (item->layout()) {
-			ClearLayout(item->layout());
+		if (temp->layout()) {
+			delete temp->layout();
 		}
-		// 아이템 자체 삭제
-		delete item;
+		delete temp;
 	}
 }
 
@@ -40,9 +35,11 @@ void TracerouteApp::ClearLayout(QLayout* layout) {
 void TracerouteApp::TraceLoop() {
 	ui.StartButton->setEnabled(false);
 	// 기존 레이아웃을 비웁니다.
-	ClearLayout(ui.scrollL->layout());
-	ui.scrollL = new QVBoxLayout(ui.scrollAreaWidgetContents);
-
+	
+	if (ui.scrollL) {
+		ClearLayout(ui.scrollL);
+	}
+	QVBoxLayout* nee = new QVBoxLayout(ui.verticalLayoutWidget);
 	qDebug() << "whatthef" << "\n";
 	//문자열 받아오기
 	std::string destiproute = ui.URLEnter->text().toStdString();

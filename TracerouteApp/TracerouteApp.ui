@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>740</width>
     <height>800</height>
    </rect>
   </property>
@@ -24,9 +24,9 @@
   <widget class="QPushButton" name="StartButton">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>40</y>
-     <width>141</width>
+     <x>480</x>
+     <y>60</y>
+     <width>211</width>
      <height>101</height>
     </rect>
    </property>
@@ -39,13 +39,13 @@
     <string/>
    </property>
    <property name="icon">
-    <iconset>
-     <normaloff>../../../../../PROJECT/Traceroute/src/img/img2.png</normaloff>../../../../../PROJECT/Traceroute/src/img/img2.png</iconset>
+    <iconset resource="TracerouteApp.qrc">
+     <normaloff>:/newPrefix/1733987856652.png</normaloff>:/newPrefix/1733987856652.png</iconset>
    </property>
    <property name="iconSize">
     <size>
-     <width>64</width>
-     <height>64</height>
+     <width>128</width>
+     <height>128</height>
     </size>
    </property>
   </widget>
@@ -168,12 +168,37 @@
     </widget>
    </widget>
   </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>100</y>
+     <width>48</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget {
+    background-color: #FFCF00;  /* 원하는 색상 코드 */
+}</string>
+   </property>
+   <property name="text">
+    <string>start</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::TextFormat::PlainText</enum>
+   </property>
+  </widget>
   <zorder>StartButton</zorder>
   <zorder>URLImage</zorder>
   <zorder>URLEnter</zorder>
   <zorder>INfor</zorder>
   <zorder>BirdImage</zorder>
   <zorder>scrollArea</zorder>
+  <zorder>label</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
