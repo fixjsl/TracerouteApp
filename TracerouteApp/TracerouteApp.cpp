@@ -17,6 +17,7 @@ TracerouteApp::~TracerouteApp()
 
 void TracerouteApp::ClearLayout(QLayout* layout) {
 	if (!layout) return;
+	qDebug() << "durlsrk" << "\n";
 	QLayoutItem* temp;
 	if ((temp = layout->takeAt(0)) != nullptr) {
 		if (temp->widget()) {
