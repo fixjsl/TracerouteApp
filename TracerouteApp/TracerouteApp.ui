@@ -77,8 +77,8 @@
      <height>31</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Enter the URL</string>
+   <property name="placeholderText">
+    <string>Enter destination IP address</string>
    </property>
   </widget>
   <widget class="QLabel" name="BirdImage">
@@ -100,19 +100,36 @@
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QLabel" name="INfor">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>170</y>
+     <width>451</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>To show Destination IP.</string>
+   </property>
+  </widget>
   <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>179</y>
-     <width>451</width>
-     <height>621</height>
+     <x>140</x>
+     <y>200</y>
+     <width>600</width>
+     <height>800</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">QWidget {
-    background-color: #fbf9f8;  /* 원하는 색상 코드 */
-}</string>
+   <property name="minimumSize">
+    <size>
+     <width>600</width>
+     <height>800</height>
+    </size>
+   </property>
+   <property name="lineWidth">
+    <number>40</number>
    </property>
    <property name="widgetResizable">
     <bool>true</bool>
@@ -122,31 +139,41 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>449</width>
-      <height>619</height>
+      <width>600</width>
+      <height>800</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>600</width>
+      <height>800</height>
+     </size>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>-1</x>
+       <y>-1</y>
+       <width>461</width>
+       <height>531</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="scrollL"/>
+    </widget>
    </widget>
-  </widget>
-  <widget class="QLabel" name="INfor">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>160</y>
-     <width>451</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>목표 주소의 ip가 표시됩니다.</string>
-   </property>
   </widget>
   <zorder>StartButton</zorder>
   <zorder>URLImage</zorder>
   <zorder>URLEnter</zorder>
-  <zorder>scrollArea</zorder>
   <zorder>INfor</zorder>
   <zorder>BirdImage</zorder>
+  <zorder>scrollArea</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

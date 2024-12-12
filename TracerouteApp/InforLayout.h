@@ -8,18 +8,19 @@
 class InforLayout
 {
 public:
-	void CreateLayout();
-	void setPing(float ping, int Packetn);
-	void setIp(std::string ip);
-	void setTTL(int ttl);
-	QVBoxLayout* getMainLayout();
+	QHBoxLayout* CreateLayout();
+	QLabel* setPing(float ping, int Packetn);
+	QLabel* setIp(std::string ip);
+	QLabel* setTTL(int ttl);
+	QHBoxLayout* getMainLayout();
 private:
-	QVBoxLayout* MainLayout;
-	QHBoxLayout* ipPingLayout;
-	QVBoxLayout* PingLayout;
+	QHBoxLayout* MainLayout;
+	QVBoxLayout* ipPingLayout;
+	QHBoxLayout* PingLayout;
 	QLabel* TTL;
 	QVector<QLabel*> Ping;
 	QLabel* Ip;
+	int z = 0;
 
 };
 

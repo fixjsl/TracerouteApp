@@ -22,7 +22,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -102,6 +102,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="queue.cpp" />
+    <ClCompile Include="TraceThread.cpp" />
     <QtRcc Include="TracerouteApp.qrc" />
     <QtUic Include="TracerouteApp.ui" />
     <QtMoc Include="TracerouteApp.h" />
@@ -115,7 +117,9 @@
     <ClInclude Include="Header.h" />
     <ClInclude Include="ICMP.h" />
     <ClInclude Include="InforLayout.h" />
+    <QtMoc Include="QQQ.h" />
     <ClInclude Include="Traceroute.h" />
+    <QtMoc Include="TraceThread.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

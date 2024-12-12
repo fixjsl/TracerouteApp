@@ -1,120 +1,132 @@
 #include "TracerouteApp.h"
-
+#include "QQQ.h"
+static TraceThread* work = new TraceThread();
+static TaskQueue taskQueue;
+QThread* mul;
 TracerouteApp::TracerouteApp(QWidget *parent)
     : QWidget(parent)
 {
 	trace.Init();
     ui.setupUi(this);
-	QHBoxLayout* M = new QHBoxLayout(ui.scrollAreaWidgetContents);
+	ui.scrollAreaWidgetContents->setMinimumSize(600, 800);
 	connect(ui.StartButton, &QPushButton::clicked, this, &TracerouteApp::TraceLoop);
 }
 
 TracerouteApp::~TracerouteApp()
 {}
 
-//초기화함수
+void TracerouteApp::ClearLayout(QLayout* layout) {
+	if (!layout) return;
+
+	// 레이아웃에 있는 모든 항목을 순차적으로 제거합니다.
+	QLayoutItem* item;
+	while ((item = layout->takeAt(0)) != nullptr) {
+		// 위젯이 있다면 삭제
+		if (item->widget()) {
+			delete item->widget();
+		}
+		// 레이아웃이 있다면 재귀적으로 비우기
+		if (item->layout()) {
+			ClearLayout(item->layout());
+		}
+		delete item;
+	}
+}
 
 
 
 //button 연결 함수
 void TracerouteApp::TraceLoop() {
 	ui.StartButton->setEnabled(false);
-	QHBoxLayout* M = new QHBoxLayout(ui.scrollAreaWidgetContents);
-	ui.scrollAreaWidgetContents->setLayout(M);
-	InforLayout pingL;
+	// 기존 레이아웃을 비웁니다.
+	ClearLayout(ui.scrollL->layout());
+	qDebug() << "whatthef" << "\n";
+	//문자열 받아오기
 	std::string destiproute = ui.URLEnter->text().toStdString();
-	ICMP icmp;
-
-	//문자열 ip변환
-    sockaddr_in destip = icmp.Stadd(destiproute);
-	ui.INfor->setText( QString::fromStdString(icmp.getIp()) + "까지의 경로추적");
-	if (destip.sin_addr.s_addr == 0) { 
-		qDebug() << "Invailed URL"<<"\n";
-		QMessageBox msg;
-		msg.setIcon(QMessageBox::Warning);
-		msg.setText("잘못된 URL입니다.");
-		msg.setStandardButtons(QMessageBox::Ok);
-		msg.setDefaultButton(QMessageBox::Ok);
-		ui.StartButton->setEnabled(true);
-		return;
-	}
-	//ping
-    std::vector<float> ping;
-	std::vector<std::chrono::time_point< std::chrono::high_resolution_clock>> stping;
-    
-    
-	//trace loop 시작
-    for (int ttl = 0; ttl < Max_hop; ttl++) {
-		pingL.CreateLayout();
-		int j = 0;
-		std::chrono::time_point< std::chrono::high_resolution_clock> start;
-		//ping 배열 초기화
-		ping.clear();
-		stping.clear();
-		//소켓 ttl설정
-		if (setsockopt(trace.getSock(), IPPROTO_IP, IP_TTL, (const char*)&ttl, sizeof(ttl)) < 0) {
-			qDebug() << "Failed set ttl : " << WSAGetLastError();
-		}
-		else qDebug() << "Success set ttl : " << ttl ;
-
-		// 패킷 3개보내기
-		for (int i = 0; i < 3; i++) {
-			icmp.Send(trace.getSock(), ttl, destip, i);
-			//송신 시작시간
-			stping.push_back(std::chrono::high_resolution_clock::now());
-		}
-		//ttl 출력
-		pingL.setTTL(ttl);
-		M->addLayout(pingL.getMainLayout());
-		//수신모듈
-		while (true) {
-			//수신
-			std::string Rresult = icmp.Receive(trace.getSock());
-
-			//타임아웃 확인
-			if (Rresult != "") {
-				if (j >= 3) {
-					break;
-				}
-				//에러메시지
-				ping.push_back(0.0);
-			}
-			else {
-				//ping 계산
-				auto end = std::chrono::high_resolution_clock::now();
-				auto dur = std::chrono::duration_cast<std::chrono::milliseconds>(end - stping[j]);
-				int durms = static_cast<float>(dur.count());
-				ping.push_back(durms);
-			}
-			//ping 출력
-			pingL.setPing(ping[j], j);
-
-
-			j++;
-		}
-		//ip출력
-		std::string tempip;
-		std::string ip = icmp.getIp();
-		if (ip == tempip) {
-			// 타임아웃 오류처리
-			pingL.setIp("Access Failed");
-		}
-		else {
-			//ip정상출력
-			pingL.setIp(ip);
-		}
-		// 도착지 확인
-		if ((int)icmp.getType() == 0) {
-			
-			ui.StartButton->setEnabled(true);
-			return;
-		}
-		tempip = ip;
-
-
-        
-    }
-	ui.INfor->setText("목적 ip까지 도착 실패\n");
+	//공백 확인
+	if (destiproute == ""){
+		QMessageBox::warning(nullptr, "Error", "Invailed URL");
 	ui.StartButton->setEnabled(true);
 	return;
+}	
+	ui.INfor->setText("Destination DoMain : " + QString::fromStdString(destiproute));
+	//멀티스레딩으로 traceroute 실행
+	mul = new QThread(this);
+
+	
+	work->setDestadd(destiproute);
+	work->setTraceSock(trace);
+
+	work->moveToThread(mul);
+	mul->start();
+	//ui동기화를 위한 함수 연결
+	if (!connect(mul, &QThread::started, work, &TraceThread::StartTT, Qt::QueuedConnection)) {
+		QMessageBox::warning(nullptr, "URL ERROR", "Invailed URL");
+	}
+	connect(work, &TraceThread::ChangeIp, this, &TracerouteApp::ChangeIp);
+	connect(work, &TraceThread::ChangePing, this, &TracerouteApp::ChangePing);
+	
+	connect(work, &TraceThread::updateTraceLayout, this, &TracerouteApp::updateTraceLayout);
+	connect(work, &TraceThread::URLError, this, &TracerouteApp::URLError);
+	connect(work, &TraceThread::TimeoutError, this, &TracerouteApp::TimeoutError);
+	connect(work, &TraceThread::comple, this, &TracerouteApp::comple);
+	connect(mul, &QThread::finished,mul, &QObject::deleteLater);
+
+	
+
+
 }
+void TracerouteApp::updateTraceLayout(int ttl,  InforLayout* pingL)
+
+{	
+	taskQueue.addTask([=]() {
+		qDebug() << "CreateLayout" << "\n";
+		pingL->CreateLayout();
+		pingL->setTTL(ttl);
+		ui.scrollL->addLayout(pingL->getMainLayout());
+		});
+}
+
+void TracerouteApp::ChangeIp(std::string ip, InforLayout* pingL)
+{	
+	taskQueue.addTask([=]() {
+		qDebug() << "ipf" << "\n";
+		pingL->setIp(ip); });
+}
+
+void TracerouteApp::ChangePing(float pingres , InforLayout* pingL, int j)
+{	
+	taskQueue.addTask([=]() {
+		qDebug() << "pingf" << "\n";
+		pingL->setPing(pingres, j); });
+}
+
+void TracerouteApp::URLError(const QString& me)
+{	
+	taskQueue.addTask([=]() {
+		qDebug() << "whatthef" << "\n";
+		QMessageBox::warning(nullptr, "URL ERROR", "Invailed URL"); });
+}
+
+void TracerouteApp::TimeoutError(const QString& me, InforLayout* pingL)
+{	
+	taskQueue.addTask([=]() {  // 포인터를 그냥 캡처
+		qDebug() << "whatthef" << "\n";
+		pingL->setIp("Access Failed");
+		} );
+}
+
+void TracerouteApp::comple(const QString& me)
+{	
+	taskQueue.addTask([=]() {
+		qDebug() << "complete" << "\n";
+		ui.INfor->setText(me); });
+	work->deleteLater(); // 워커 객체 삭제 예약
+	mul->quit();         // 스레드 이벤트 루프 종료
+	mul->wait();         // 스레드 종료 대기
+	delete mul;          // 스레드 객체 삭제
+	mul = nullptr;
+	ui.StartButton->setEnabled(true);
+}
+
+   
