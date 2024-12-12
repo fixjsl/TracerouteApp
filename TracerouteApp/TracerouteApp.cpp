@@ -25,7 +25,7 @@ void TracerouteApp::ClearLayout(QLayout* layout) {
 		if (temp->layout()) {
 			delete temp->layout();
 		}
-		delete temp;
+		
 	}
 }
 
